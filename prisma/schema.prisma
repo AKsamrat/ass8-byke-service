@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Customer {
+customerId  String    @id @default(uuid()) 
+name        String    
+email       String  
+phone       String 
+createdAt   DateTime @default(now())
+updatedAt   DateTime @default(now())
+ bike       Bike?
+@@map("customers")
+}
+
+model Bike {
+  bikeId     String    @id @default(uuid())
+  brand      BrandName
+  model      String
+  year       Int
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now())
+
+  customerId String    @unique
+  customer   Customer  @relation(fields: [customerId], references: [customerId])
+
+  services   Service?
+  @@map("bikes")
+}
+
+model Service {
+  serviceId      String    @id @default(uuid())
+  serviceDate    DateTime
+  completionDate DateTime
+  description    String
+  status         Status
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now())
+
+  bikeId         String    @unique
+  bike           Bike      @relation(fields: [bikeId], references: [bikeId])
+
+  @@map("services")
+}
+
+enum BrandName{
+  HONDA
+  YAMAHA
+  BAJAJ
+  CF_MOTO
+}
+enum Status{
+ PENDING
+ IN_PROGRESS
+ DONE
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
