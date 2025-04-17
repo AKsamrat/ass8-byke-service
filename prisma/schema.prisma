@@ -37,14 +37,14 @@ model Bike {
   customerId String    @unique
   customer   Customer  @relation(fields: [customerId], references: [customerId])
 
-  services   Service?
+  service   Service?
   @@map("bikes")
 }
 
 model Service {
   serviceId      String    @id @default(uuid())
   serviceDate    DateTime
-  completionDate DateTime
+  completionDate DateTime? 
   description    String
   status         Status
   createdAt      DateTime  @default(now())
@@ -57,15 +57,15 @@ model Service {
 }
 
 enum BrandName{
-  HONDA
-  YAMAHA
-  BAJAJ
-  CF_MOTO
+  Honda
+  Yamaha
+  Bajaj
+  Cf_Moto
 }
 enum Status{
- PENDING
- IN_PROGRESS
- DONE
+ pending
+ in_progress
+ done
 }
 
 

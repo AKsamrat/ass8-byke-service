@@ -1,14 +1,15 @@
 -- CreateEnum
-CREATE TYPE "BrandName" AS ENUM ('HONDA', 'YAMAHA', 'BAJAJ', 'CF_MOTO');
+CREATE TYPE "BrandName" AS ENUM ('Honda', 'Yamaha', 'Bajaj', 'Cf_Moto');
 
 -- CreateEnum
-CREATE TYPE "Status" AS ENUM ('PENDING', 'IN_PROGRESS', 'DONE');
+CREATE TYPE "Status" AS ENUM ('pending', 'in_progress', 'done');
 
 -- CreateTable
 CREATE TABLE "customers" (
     "customerId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
+    "phone" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -32,7 +33,7 @@ CREATE TABLE "bikes" (
 CREATE TABLE "services" (
     "serviceId" TEXT NOT NULL,
     "serviceDate" TIMESTAMP(3) NOT NULL,
-    "completionDate" TIMESTAMP(3) NOT NULL,
+    "completionDate" TIMESTAMP(3),
     "description" TEXT NOT NULL,
     "status" "Status" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
