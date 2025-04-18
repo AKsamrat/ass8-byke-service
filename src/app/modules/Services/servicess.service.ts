@@ -21,24 +21,31 @@ const getAllService = async () => {
   return result
 }
 const getPendingOrOverdueService = async () => {
-  // console.log("controller")
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
   const result = await prisma.service.findMany({
     where: {
-      status: {
-        in: ["pending", "in_progress"],
-      },
-      serviceDate: {
-        lt: sevenDaysAgo,
-      }
-    }
-  })
-  return result
-}
+      OR: [
+        {
+          status: {
+            in: ["pending", "in_progress"],
+          },
+        },
+        {
+          serviceDate: {
+            lt: sevenDaysAgo,
+          },
+        },
+      ],
+    },
+  });
+
+  return result;
+};
 const updateService = async (serviceId: string, completionDate: any) => {
 
-  // console.log(completionDate)
+  console.log(completionDate)
   const result = await prisma.service.update({
     where: {
       serviceId

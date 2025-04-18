@@ -48,8 +48,9 @@ const getAllService = catchAsync(async (req: Request, res: Response) => {
 
 })
 const getPendingOrOverdueService = catchAsync(async (req: Request, res: Response) => {
-  // console.log("controller")
+  console.log("controller")
   const result = await servicesService.getPendingOrOverdueService()
+  console.log(result)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
